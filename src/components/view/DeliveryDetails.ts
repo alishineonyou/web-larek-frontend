@@ -34,8 +34,7 @@ export class DeliveryDetails extends Form<IDeliveryDetails> {
 	}
 
 	set address(value: string) {
-		(this.container.children.namedItem('address') as HTMLInputElement).value =
-			value;
+		this._addressInput.value = value;
 	}
 
 	private _handlePaymentClick(clickedButton: HTMLButtonElement): void {

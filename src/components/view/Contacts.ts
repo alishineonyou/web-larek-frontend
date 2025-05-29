@@ -30,12 +30,10 @@ export class Contacts extends Form<IContacts> {
 	}
 
 	set email(value: string) {
-		(this.container.children.namedItem('email') as HTMLInputElement).value =
-			value;
+		this._emailInput.value = value;
 	}
 
 	set phone(value: string) {
-		(this.container.children.namedItem('phone') as HTMLInputElement).value =
-			value;
+		this._phoneInput.value = value;
 	}
 }

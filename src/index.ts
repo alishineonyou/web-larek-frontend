@@ -91,6 +91,7 @@ events.on('modal:open', () => {
 
 events.on('modal:close', () => {
 	page.locked = false;
+
 });
 
 events.on('basket:delete-item', (item: IBasketItem) => {
@@ -126,9 +127,7 @@ events.on('basket:open', () => {
 events.on('basket:order', () => {
 	order.items = basketModel.items.map((item) => item.id);
 	order.total = basketModel.total;
-	if (order.validateDeliveryDetails()) {
-		order.valid = true;
-	}
+	order.valid = order.validateDeliveryDetails();
 	modal.render({ content: deliveryDetails.render(order) });
 });
 
@@ -154,22 +153,18 @@ events.on(
 );
 
 events.on('order:submit', () => {
-	if (order.validateContacts()) {
-		order.valid = true;
-	}
+	order.valid = order.validateContacts();
 	modal.render({ content: contacts.render(order) });
 });
 
-// пока не реализовал, но будет отвечать за ввод почты и проверки правильного написания
 events.on(
 	'email:change',
 	(data: { field: keyof IOrder; value: PaymentMethods }) => {
 		order.email = data.value;
-		console.log(order.validateContacts());
+		order.validateContacts();
 	}
 );
 
-// пока не реализовал, но будет отвечать за ввод почты и проверки правильного написания
 events.on(
 	'phone:change',
 	(data: { field: keyof IOrder; value: PaymentMethods }) => {
